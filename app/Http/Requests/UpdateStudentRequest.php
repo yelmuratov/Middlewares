@@ -11,7 +11,7 @@ class UpdateStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,14 +20,18 @@ class UpdateStudentRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
-        return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:students',
-            'phone' => 'required|string|max:255',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ];
-    }
+{
+    $studentId = $this->route('student')->getKey(); // Retrieve the ID of the student
+
+    return [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:students,email,' . $studentId . ',id',
+        'phone' => 'required|string|max:255',
+        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ];
+}
+
+
 
     public function messages(): array
     {

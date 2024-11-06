@@ -9,30 +9,28 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center">Login</h2>
-        @php
-            if(session('error')){
-                echo '<div class="alert alert-danger">'.session('error').'</div>';
-            }
-            if(session('success')){
-                echo '<div class="alert alert-success">'.session('success').'</div>';
-            }
-        @endphp
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         <form action="{{ route('user.login') }}" method="POST" class="mt-4">
             @csrf
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
-            @if(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
-            @if(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
+            @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button type="submit" class="btn btn-primary">Login</button>
             <a href="{{ route('register') }}" class="btn btn-success mt-2">Register</a>
             <a href="{{ route('index') }}" class="btn btn-info mt-2">Back</a>

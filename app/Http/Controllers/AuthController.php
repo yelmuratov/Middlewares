@@ -28,15 +28,15 @@ class AuthController extends Controller
 
    public function userLogin(LoginRequest $request)
     {
-        if (Auth::attempt($request->validated())) {
+        if (Auth::attempt($request->only('email', 'password', 'role'))) {
             return redirect()->route('students.index')->with('success', 'Logged in successfully');
         }
         return back()->with('error', 'Invalid credentials');
     }
 
     public function userRegister(RegisterRequest $request)
-    {
-        User::create($request->validated());
+    {       
+        User::create($request->all());
         return redirect()->route('login')->with('success', 'User created successfully');
     }
 
