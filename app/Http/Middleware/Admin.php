@@ -16,10 +16,11 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role=='admin'){ 
+        if (Auth::user() && strtolower(trim(Auth::user()->role)) === 'admin') {
             return $next($request);
         }
-
-        return response('Unauthorized', 401);
+        
+        return response('Unauthorized', 401);        
+        
     }
 }

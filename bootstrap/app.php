@@ -14,10 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // middlewares with aliases
         $middleware->alias([
-            'updater' => 'App\Http\Middleware\Updater',
-            'creator' => 'App\Http\Middleware\Creator',
-            'deleter' => 'App\Http\Middleware\Deleter',
-        ]);
+            'admin' => \App\Http\Middleware\Admin::class,
+            'updater' => \App\Http\Middleware\Updater::class,
+            'creator' => \App\Http\Middleware\Creator::class,
+            'deleter' => \App\Http\Middleware\Deleter::class,
+        ]);        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

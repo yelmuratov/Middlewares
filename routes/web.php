@@ -19,7 +19,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Student Routes
 Route::get('/students', [StudentController::class, 'index'])->name('students.index');
-Route::get('/students/create', [StudentController::class, 'create'])->name('students.create')->middleware('creator');
+Route::get('/students/create', [StudentController::class, 'create'])->name('students.create')->middleware(['creator']);
 Route::post('/students', [StudentController::class, 'store'])->name('students.store')->middleware('creator');
 Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show');
 Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit')->middleware('updater');

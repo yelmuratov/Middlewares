@@ -16,10 +16,10 @@ class Deleter
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role=='deleter'){ 
+        if (Auth::check() && (strtolower(trim(Auth::user()->role)) == 'deleter' || strtolower(trim(Auth::user()->role)) == 'admin')) { 
             return $next($request);
         }
-
-        return response('Unauthorized', 401);
+        
+        return response('Unauthorized', 401);        
     }
 }

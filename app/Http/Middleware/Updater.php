@@ -16,10 +16,11 @@ class Updater
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role=='updater'){ 
+        if (Auth::check() && (strtolower(trim(Auth::user()->role)) === 'updater' || strtolower(trim(Auth::user()->role)) === 'admin')) {
             return $next($request);
-        }
+        } ;      
 
         return response('Unauthorized', 401);
     }
+
 }

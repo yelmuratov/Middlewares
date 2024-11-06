@@ -24,7 +24,8 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:8']
+            'password' => ['required', 'min:8'],
+            'role' => ['required', 'in:admin,user,creator,updater,deleter']
         ];
     }
 
@@ -37,7 +38,9 @@ class RegisterRequest extends FormRequest
             'email.email' => 'Email must be a valid email address',
             'email.unique' => 'Email is already taken',
             'password.required' => 'Password is required',
-            'password.min' => 'Password must be at least 8 characters'
+            'password.min' => 'Password must be at least 8 characters',
+            'role.required' => 'Role is required',
+            'role.in' => 'Role must be one of: admin, user, creator, updater, deleter'
         ];
     }
 }

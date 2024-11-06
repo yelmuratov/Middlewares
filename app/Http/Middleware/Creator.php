@@ -16,10 +16,10 @@ class Creator
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role=='creator'){ 
+        if (Auth::check() && (strtolower(trim($request->user()->role)) == 'creator' || strtolower(trim($request->user()->role)) == 'admin')) {
             return $next($request);
         }
-
-        return response('Unauthorized', 401);
+        
+        return response('Unauthorized', 401);        
     }
 }
